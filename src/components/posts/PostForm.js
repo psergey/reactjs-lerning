@@ -45,7 +45,7 @@ class PostForm extends Component {
                     <input id="title" name='title' type="text" value={this.state.title} onChange={this.onChange}></input>
                 </div>
                 <div className='control'>
-                    <label htmlFor="body">Text</label>
+                    <label htmlFor="body">Post Text</label>
                     <textarea 
                         id="body"
                         name='body'
@@ -54,7 +54,8 @@ class PostForm extends Component {
                         onChange={this.onChange}></textarea>
                 </div>
                 <div className='actions'>
-                    <button>Save</button>
+                    <button onClick={this.props.onReset}>Clear</button>
+                    <button className='active'>Save</button>
                 </div>
             </form>
         )

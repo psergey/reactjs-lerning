@@ -19,7 +19,13 @@ class PostsList extends Component {
         }
     }
 
-    onSubmit = (item) => {
+    onFormReset = () => {
+        this.setState({
+            currentPost: this.emptyPost
+        })
+    }
+
+    onFormSubmit = (item) => {
 
         if (!item.id) {
             fetch('https://jsonplaceholder.typicode.com/posts',  {
@@ -107,7 +113,8 @@ class PostsList extends Component {
                     <li>
                         <PostForm
                         {...this.state.currentPost}
-                        onSubmit={this.onSubmit}
+                        onReset={this.onFormReset}
+                        onSubmit={this.onFormSubmit}
                     />
                     </li>
                     {postItems}
