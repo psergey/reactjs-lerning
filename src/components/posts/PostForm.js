@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './PostForm.css';
 
 class PostForm extends Component {
 
@@ -38,16 +39,23 @@ class PostForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <div>
+            <form className='form' onSubmit={this.onSubmit}>
+                <div className='control'>
                     <label htmlFor="title">Title</label>
                     <input id="title" name='title' type="text" value={this.state.title} onChange={this.onChange}></input>
                 </div>
-                <div>
+                <div className='control'>
                     <label htmlFor="body">Text</label>
-                    <textarea id="body" name='body' value={this.state.body} onChange={this.onChange}></textarea>
+                    <textarea 
+                        id="body"
+                        name='body'
+                        rows='5'
+                        value={this.state.body}
+                        onChange={this.onChange}></textarea>
                 </div>
-                <button>Save</button>
+                <div className='actions'>
+                    <button>Save</button>
+                </div>
             </form>
         )
    

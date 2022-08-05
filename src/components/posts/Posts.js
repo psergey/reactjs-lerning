@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Posts.css';
 import PostForm from './PostForm';
 import PostItem from './PostItem';
 
@@ -101,15 +102,17 @@ class PostsList extends Component {
                 onDelete={this.onDelete.bind(this, post.id)} />)
 
         return (
-            <>
-                <PostForm
-                    {...this.state.currentPost}
-                    onSubmit={this.onSubmit}
-                />
-                <ul>
+            <section className='posts'>
+                <ul className='posts'>
+                    <li>
+                        <PostForm
+                        {...this.state.currentPost}
+                        onSubmit={this.onSubmit}
+                    />
+                    </li>
                     {postItems}
                 </ul>
-            </>
+          </section>
         )
     }
 

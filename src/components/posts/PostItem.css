@@ -1,14 +1,15 @@
 .post-item {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 30px 20px 0px;
-    width: 70%;
-    border-bottom: 1px solid #cecece;
-    font-weight: 100;
-    color: #535252;
-  }
-  
-  input[type=checkbox] {
-    margin-right: 10px;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.post-item h3 {
+  margin: 0 0 0.25rem 0;
+}
+
+.description {
+  font-style: italic;
+}
