@@ -7,16 +7,26 @@ class PostForm extends Component {
         super(props)
 
         this.state ={
+            id: null,
             title: '',
             body: ''
         };
     }
 
+    setData = (item) => {
+        this.setState({
+            id: item.id,
+            title: item.title,
+            body: item.body
+        })
+    }
+
     onSubmit = (event) => {
+        debugger
         event.preventDefault();
         // const [postTitle, postText] = event.target;
         this.props.onSubmit({
-            id: this.props.id,
+            id: this.state.id,
             title: this.state.title,
             body: this.state.body,
             userId: 1,
@@ -30,12 +40,12 @@ class PostForm extends Component {
         })
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({ 
-            title: props.title,
-            body: props.body
-        })
-      }
+    // componentWillReceiveProps(props) {
+    //     this.setState({ 
+    //         title: props.title,
+    //         body: props.body
+    //     })
+    //   }
 
     render() {
         return (
@@ -54,7 +64,7 @@ class PostForm extends Component {
                         onChange={this.onChange}></textarea>
                 </div>
                 <div className='actions'>
-                    <button onClick={this.props.onReset}>Clear</button>
+                    <button onClick={this.props.onReset} type="button">Clear</button>
                     <button className='active'>Save</button>
                 </div>
             </form>

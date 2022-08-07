@@ -17,12 +17,15 @@ class PostsList extends Component {
             currentPost: this.emptyPost,
             posts: []
         }
+
+        this.formRef = React.createRef();
     }
 
     onFormReset = () => {
-        this.setState({
-            currentPost: this.emptyPost
-        })
+        // this.setState({
+        //     currentPost: this.emptyPost
+        // })
+        this.formRef.current.setData(this.emptyPost);
     }
 
     onFormSubmit = (item) => {
@@ -43,7 +46,6 @@ class PostsList extends Component {
                 item.id = id
                 items.push(item);
                 this.setState({
-                    currentPost: this.emptyPost,
                     posts: items
                 })
             });
@@ -59,21 +61,24 @@ class PostsList extends Component {
             .then((response) => response.json())
             .then((item) => {
                 let items = [...this.state.posts];
-                const index = items.findIndex(el => el.id == item.id);
+                const index = items.findIndex(el => el.id === item.id);
                 items[index] = item;
 
                 this.setState({
-                    currentPost: this.emptyPost,
                     posts: items
                 })
             });
         }
+        
+        this.onFormReset();
     }
 
     onEdit = (item) => {
-        this.setState({
-            currentPost: item
-        });
+        // this.setState({
+        //     currentPost: item
+        // });
+
+        this.formRef.current.setData(item);
     }
 
     onDelete = (id) => {
@@ -112,10 +117,10 @@ class PostsList extends Component {
                 <ul className='posts'>
                     <li>
                         <PostForm
-                        {...this.state.currentPost}
-                        onReset={this.onFormReset}
-                        onSubmit={this.onFormSubmit}
-                    />
+                            ref={this.formRef}
+                            onReset={this.onFormReset}
+                            onSubmit={this.onFormSubmit}
+                        />
                     </li>
                     {postItems}
                 </ul>
