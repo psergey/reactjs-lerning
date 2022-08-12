@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/react-lesson-02/static/css/main.e5895824.css",
-    "main.js": "/react-lesson-02/static/js/main.a3dbb8a8.js",
-    "static/js/787.b8fa26a9.chunk.js": "/react-lesson-02/static/js/787.b8fa26a9.chunk.js",
-    "static/media/logo.svg": "/react-lesson-02/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/react-lesson-02/index.html",
-    "main.e5895824.css.map": "/react-lesson-02/static/css/main.e5895824.css.map",
-    "main.a3dbb8a8.js.map": "/react-lesson-02/static/js/main.a3dbb8a8.js.map",
-    "787.b8fa26a9.chunk.js.map": "/react-lesson-02/static/js/787.b8fa26a9.chunk.js.map"
+    "main.css": "/reactjs-lerning/static/css/main.e5895824.css",
+    "main.js": "/reactjs-lerning/static/js/main.fe490090.js",
+    "static/js/787.b8fa26a9.chunk.js": "/reactjs-lerning/static/js/787.b8fa26a9.chunk.js",
+    "static/media/logo.svg": "/reactjs-lerning/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/reactjs-lerning/index.html",
+    "main.e5895824.css.map": "/reactjs-lerning/static/css/main.e5895824.css.map",
+    "main.fe490090.js.map": "/reactjs-lerning/static/js/main.fe490090.js.map",
+    "787.b8fa26a9.chunk.js.map": "/reactjs-lerning/static/js/787.b8fa26a9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e5895824.css",
-    "static/js/main.a3dbb8a8.js"
+    "static/js/main.fe490090.js"
   ]
 }
