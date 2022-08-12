@@ -5,129 +5,119 @@ import PostItem from './PostItem';
 
 class PostsList extends Component {
 
-    constructor(){
-        super();
-        this.emptyPost = {
+    state = {
+        currentPost: {
             id: undefined,
             title: '',
             body: ''
-        };
-        
-        this.state = {
-            currentPost: this.emptyPost,
-            posts: []
-        }
-
-        this.formRef = React.createRef();
+        },
+        showEditForm: false,
+        posts: []
     }
 
     onFormReset = () => {
-        // this.setState({
-        //     currentPost: this.emptyPost
-        // })
-        this.formRef.current.setData(this.emptyPost);
+        this.setState({ showEditForm: false })
     }
 
-    onFormSubmit = (item) => {
+    onFormSubmit = async (event) => {
+        event.preventDefault();
 
-        if (!item.id) {
-            fetch('https://jsonplaceholder.typicode.com/posts',  {
+        if (!this.state.currentPost.id) {
+            const response = await fetch('https://jsonplaceholder.typicode.com/posts',  {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json;charset=utf-8'
                 },
-                body: JSON.stringify(item)
+                body: JSON.stringify(this.state.currentPost)
             })
-            .then((response) => response.json())
-            .then((item) => {
-                let items = [...this.state.posts];
-                const id = Math.max(...items.map(i => i.id)) + 1;
-                
-                item.id = id
-                items.push(item);
-                this.setState({
-                    posts: items
-                })
-            });
+            const post = await response.json();
+            post.id = Math.max(...this.state.posts.map(i => i.id)) + 1; // synthetic id
+            this.setState({ posts: [post, ...this.state.posts] });
         }
         else {
-            fetch(`https://jsonplaceholder.typicode.com/posts/${item.id}`,  {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${this.state.currentPost.id}`,  {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json;charset=utf-8'
                 },
-                body: JSON.stringify(item)
-            })
-            .then((response) => response.json())
-            .then((item) => {
-                let items = [...this.state.posts];
-                const index = items.findIndex(el => el.id === item.id);
-                items[index] = item;
-
-                this.setState({
-                    posts: items
-                })
+                body: JSON.stringify(this.state.currentPost)
             });
+            const post = await response.json();
+            this.setState({ posts: this.state.posts.map(item => item.id === post.id ? post : item) });
         }
         
         this.onFormReset();
     }
 
-    onEdit = (item) => {
-        // this.setState({
-        //     currentPost: item
-        // });
-
-        this.formRef.current.setData(item);
+    onAdd = () => {
+        this.setState({ 
+            showEditForm: true,
+            currentPost: {} 
+        });
     }
 
-    onDelete = (id) => {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${id}`,  {
+    onEdit = (item) => {
+        this.setState({ 
+            showEditForm: true,
+            currentPost: item 
+        });
+    }
+
+    onDelete = async (item) => {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${item.id}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
             }
-        }).then(_ => {
-            this.setState({
-                posts: this.state.posts.filter(item => item.id !== id)
-            })
+        })
+        if (!response.ok) {
+            return;
+        }
+        this.setState({ posts: this.state.posts.filter(post => post.id !== item.id) })
+    }
+
+    onChangeFormData = (event) => {
+        const { name, value } = event.target;
+        this.setState({
+            currentPost: {
+                ...this.state.currentPost,
+                [name]: value
+            }
         })
     }
 
-    componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(items => {
-            this.setState({
-                posts: items.slice(0, 10)
-            })
-        });
+    async componentDidMount() {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+        const posts = await response.json();
+        this.setState({ posts: posts.slice(0, 10) })
     }
 
     render() {
-        const postItems = this.state.posts.map(post => 
-            <PostItem
-                key={post.id} 
-                {...post} 
-                onEdit={this.onEdit.bind(this, post)}
-                onDelete={this.onDelete.bind(this, post.id)} />)
-
         return (
             <section className='posts'>
+                <button className='link-button' onClick={this.onAdd}>Add New Post</button>
                 <ul className='posts'>
-                    <li>
+                    {this.state.showEditForm &&
+                     <li>
                         <PostForm
-                            ref={this.formRef}
+                            title={this.state.currentPost.title}
+                            body={this.state.currentPost.body}
+                            onChangeFormData={this.onChangeFormData}
                             onReset={this.onFormReset}
                             onSubmit={this.onFormSubmit}
                         />
-                    </li>
-                    {postItems}
+                    </li>}
+                    {this.state.posts.map(post => 
+                        <PostItem
+                            key={post.id} 
+                            {...post} 
+                            onEdit={this.onEdit.bind(this, post)}
+                            onDelete={this.onDelete.bind(this, post)} />)
+                }
                 </ul>
           </section>
         )
     }
-
 }
 
 export default PostsList;
