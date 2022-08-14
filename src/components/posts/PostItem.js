@@ -9,13 +9,13 @@ function PostItem(props){
 
     return (
         <li className='post-item'>
-            <div>
+            <div className='item'>
                 <h3>{props.title}</h3>
                 <div className='description'>{props.body}</div>
             </div>
-            <div className=''>
-                <button onClick={props.onEdit}>Edit</button>
-                <button onClick={props.onDelete}>Delete</button>
+            <div className='actions'>
+                <button onClick={props.onEdit} className='link-button'>Edit</button>
+                <button onClick={props.onDelete} className='link-button'>Delete</button>
             </div>
         </li>
     )
