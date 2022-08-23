@@ -1,0 +1,14 @@
+.languages {
+    display: flex;
+    justify-content: center;
+}
+
+.languages li {
+    margin: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.languages li.active {
+    color: #d0021b;
+}
