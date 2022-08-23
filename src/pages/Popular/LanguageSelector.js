@@ -8,7 +8,7 @@ const LanguageSelector = ({isLoading, selectedLanguage, onSelectLanguage}) => {
                 <li 
                     key={language}
                     className={selectedLanguage === language ? classes.active : null}
-                    onClick={ !isLoading ? () => onSelectLanguage(language) : null }>
+                    onClick={ !(isLoading || selectedLanguage === language) ? () => onSelectLanguage(language) : null }>
                     {language}
                 </li>)
             )}
