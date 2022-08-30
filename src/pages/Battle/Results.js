@@ -49,7 +49,7 @@ const Results = () => {
                     score={playersResult[0].score}
                     profile={playersResult[0].profile} />
                 <Player
-                    status={playersResult[1].score === playersResult[1].score ? 'draw' : 'loser'}
+                    status={playersResult[0].score === playersResult[1].score ? 'draw' : 'loser'}
                     score={playersResult[1].score}
                     profile={playersResult[1].profile} />
             </div>}
