@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import Loader from "../../components/ui/Loader/Loader";
 import LanguageSelector from "./LanguageSelector";
 import Players from "./Players";
-import PlayersProvider from "./services/playersApi";
+import PlayersProvider from "../../services/playersApi";
 
 const Popular = () => {
     const [searchParams, setSearchParams] = useSearchParams();

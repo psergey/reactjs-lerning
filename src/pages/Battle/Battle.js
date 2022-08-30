@@ -1,7 +1,11 @@
+import FighterSelector from "./FighterSelector";
+
 const Battle = () => {
     return ( 
         <>
-            <h1>BATTLE</h1>
+            <div>
+                <FighterSelector />
+            </div>
         </>
     )
 }

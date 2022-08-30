@@ -1,0 +1,15 @@
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+}
+
+.avatar {
+    width: 150px;
+    border-radius: 50%;
+}
+
+h2.username {
+    align-items: center;
+}
