@@ -1,69 +1,44 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/ui/Loader/Loader";
 import LanguageSelector from "./LanguageSelector";
 import Players from "./Players";
-import PlayersProvider from "../../services/playersApi";
+import { fetchPopularPlayers, languageChanged } from "./popularSlice";
 
 const Popular = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [selectedLanguage, setLanguage] = useState();
-    const [isLoading, setLoading] = useState(true);
-    const [isError, setError] = useState(false);
-    const [playersInfo, setPlayersInfo] = useState([]);
+    const dispatch = useDispatch();
+    const { language, playersInfo, status, errorMessage } = useSelector(state => state.populars);
 
     useEffect(() => {
-        const getPopulars = async () => {
-            try
-            {
-                const language = searchParams.get("language") ?? "ALL";
-                setLanguage(language);
-
-                const data = await PlayersProvider.populars(language);
-                setPlayersInfo(data);
-            }
-            catch
-            {
-                setError(true);
-                setPlayersInfo([]);
-            }
-            finally
-            {
-                setLoading(false);
-            }
-        }
-
-        getPopulars();
+        dispatch(languageChanged(searchParams.get("language") ?? "ALL"))
     }, [searchParams]);
+
+    useEffect(() => {
+        dispatch(fetchPopularPlayers(language));
+    }, [language]);
     
     const selectLanguageHandler = async (language) => {
-        try
-        {
-            setLoading(true);
-            setError(false);
-            setLanguage(language);
-            setSearchParams({ language: language });
-
-            const data = await PlayersProvider.populars(language);
-            setPlayersInfo(data);
-        }
-        catch {
-            setError(true);
-            setPlayersInfo([]);
-        }
-        finally {
-            setLoading(false);
-        }
+        setSearchParams({ language: language });
+        dispatch(languageChanged(language));
     }
 
+    let content;
+    if (status === 'loading')
+        content = <Loader />;
+    else if (status === 'error')
+        content = <h1 className="error">{errorMessage ? errorMessage : "Ups, something went wrong..."}</h1>;
+    else 
+        content = <Players playersInfo={playersInfo} />;
+    
     return (
         <>
             <LanguageSelector
-                isLoading={isLoading}
-                selectedLanguage={selectedLanguage}
+                isLoading={status === 'loading'}
+                selectedLanguage={language}
                 onSelectLanguage={selectLanguageHandler} />
-            {isLoading ? <Loader /> : (playersInfo.length > 0 && <Players playersInfo={playersInfo} />)}
-            {isError && <h1 className="error">Ups, something went wrong...</h1>}
+            {content}
         </>
     )
 }

@@ -1,57 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../components/ui/Loader/Loader';
 import Player from './Player';
-import { fight } from './services/ResultService';
 import classes from './FighterSelector.module.css'
+import { fight } from './fightSlice';
 
 const Results = () => {
     const [searchParams] = useSearchParams();
-    const [playersResult, setPlayersResult] = useState([]);
-    const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    
+    const dispatch = useDispatch();
+    const { status, fightResults, errorMessage } = useSelector(state => state.fight);
+
     useEffect(() => {
-        const doFight = async () => {
-            try
-            {
-                setLoading(true);
-                setError(null);
-
-                const results = await fight([...searchParams.values()]);
-                setPlayersResult(results);   
-            }
-            catch(ex) {
-                setError('Unable to get result!');
-            }
-            finally
-            {
-                setLoading(false);
-            }
-        }
-
-        doFight();
-    }, []);
-
+        dispatch(fight([...searchParams.values()]))
+    }, [dispatch, searchParams])
+    
     return (
         <>
-            {error && 
+            {status === 'error' && 
                 <div>
-                    <h1 className="error">{error}</h1>
+                    <h1 className="error">{errorMessage}</h1>
                     <Link to="/battle" className="button">Back to Players</Link>
                 </div>
             }
-            {isLoading ? 
+            {status === 'loading' ? 
                 <Loader /> :     
-                !error && <div className={classes.row}>
+                !status !== 'error' && fightResults.length === 2 && <div className={classes.row}>
                 <Player
-                    status={playersResult[0].score === playersResult[1].score ? 'draw' : 'winner'}
-                    score={playersResult[0].score}
-                    profile={playersResult[0].profile} />
+                    status={fightResults[0].score === fightResults[1].score ? 'draw' : 'winner'}
+                    score={fightResults[0].score}
+                    profile={fightResults[0].profile} />
                 <Player
-                    status={playersResult[0].score === playersResult[1].score ? 'draw' : 'loser'}
-                    score={playersResult[1].score}
-                    profile={playersResult[1].profile} />
+                    status={fightResults[0].score === fightResults[1].score ? 'draw' : 'loser'}
+                    score={fightResults[1].score}
+                    profile={fightResults[1].profile} />
             </div>}
         </>
     )
