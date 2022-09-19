@@ -4,13 +4,13 @@ const Nav = () => (
     <nav>
         <ul className='nav'>
             <li>
-                <NavLink exact='true' className='active' to='/'>Home</NavLink>
+                <NavLink to='/' end>Home</NavLink>
             </li>
             <li>
-                <NavLink className='active' to='/popular'>Popular</NavLink>
+                <NavLink to='/popular'>Popular</NavLink>
             </li>
             <li>
-                <NavLink className='active' to='/battle'>Battle</NavLink>
+                <NavLink to='/battle'>Battle</NavLink>
             </li>
         </ul>
     </nav>

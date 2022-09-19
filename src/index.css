@@ -29,6 +29,10 @@ li {
   margin-right: 15px;
 }
 
+.nav li a.active {
+  font-weight: bold;
+}
+
 h1.error {
   text-align: center;
 }
