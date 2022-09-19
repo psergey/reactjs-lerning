@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../components/ui/Loader/Loader';
 import Player from './Player';
 import classes from './FighterSelector.module.css'
 import { fight } from './fightSlice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-const Results = () => {
+const Results: React.FC = () => {
     const [searchParams] = useSearchParams();
-    const dispatch = useDispatch();
-    const { status, fightResults, errorMessage } = useSelector(state => state.fight);
-
+    const dispatch = useAppDispatch();
+    const { status, fightResults, errorMessage } = useAppSelector(state => state.fight);
+    
     useEffect(() => {
         dispatch(fight([...searchParams.values()]))
     }, [dispatch, searchParams])
@@ -25,7 +25,7 @@ const Results = () => {
             }
             {status === 'loading' ? 
                 <Loader /> :     
-                !status !== 'error' && fightResults.length === 2 && <div className={classes.row}>
+                status === 'idle' && fightResults.length === 2 && <div className={classes.row}>
                 <Player
                     status={fightResults[0].score === fightResults[1].score ? 'draw' : 'winner'}
                     score={fightResults[0].score}

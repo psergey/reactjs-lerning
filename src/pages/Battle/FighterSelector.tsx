@@ -1,20 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import PlayerInput from "./PlayerInput";
 import PlayerPreview from "./PlayerPreview";
 import classes from './FighterSelector.module.css'
 import { playerSelected, playerReset } from "./playersSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { FighterIds } from "./models/models";
 
-const FighterSelector = () => {
+const FighterSelector: React.FC = () => {
     const location = useLocation();
-    const dispatch = useDispatch();
-    const { player1, player2 } = useSelector(state => state.players);
-
-    const onSubmitHandler = (id, userName) => {
-        dispatch(playerSelected({id, userName}));
+    const dispatch = useAppDispatch();
+    const { player1, player2 } = useAppSelector(state => state.players);
+    
+    const onSubmitHandler = (id: FighterIds, name: string) => {
+        dispatch(playerSelected({id, name}));
     }
 
-    const onResetHandler = (id) => {
+    const onResetHandler = (id: FighterIds) => {
         dispatch(playerReset(id))
     }
 
@@ -25,7 +26,7 @@ const FighterSelector = () => {
                 <PlayerInput 
                     id="player1"
                     label="Player 1"
-                    class={classes.column}
+                    className={classes.column}
                     onSubmit={onSubmitHandler} 
                 /> :
                 <PlayerPreview 
@@ -38,7 +39,7 @@ const FighterSelector = () => {
                 <PlayerInput 
                     id="player2"
                     label="Player 2"
-                    class={classes.column}
+                    className={classes.column}
                     onSubmit={onSubmitHandler} 
                 /> :
                 <PlayerPreview 

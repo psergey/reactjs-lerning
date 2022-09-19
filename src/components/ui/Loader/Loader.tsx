@@ -1,6 +1,6 @@
 import classes from './Loader.module.css'
 
-const Loader = () => {
+const Loader: React.FC = () => {
     return (
       <div className={classes['spinner-container']}>
         <div className={classes['loading-spinner']}></div>

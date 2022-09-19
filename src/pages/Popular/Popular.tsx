@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/ui/Loader/Loader";
 import LanguageSelector from "./LanguageSelector";
 import Players from "./Players";
 import { fetchPopularPlayers, languageChanged } from "./popularSlice";
+import { Languages } from "../../models/models";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 const Popular = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const dispatch = useDispatch();
-    const { language, playersInfo, status, errorMessage } = useSelector(state => state.populars);
+    const dispatch = useAppDispatch()
+    const { language, players, status, errorMessage } = useAppSelector(state => state.populars);
 
     useEffect(() => {
-        dispatch(languageChanged(searchParams.get("language") ?? "ALL"))
+        dispatch(languageChanged(searchParams.get("language") ?? Languages.ALL))
     }, [searchParams]);
 
     useEffect(() => {
         dispatch(fetchPopularPlayers(language));
     }, [language]);
     
-    const selectLanguageHandler = async (language) => {
+    const selectLanguageHandler = async (language: Languages) => {
         setSearchParams({ language: language });
         dispatch(languageChanged(language));
     }
@@ -30,7 +31,7 @@ const Popular = () => {
     else if (status === 'error')
         content = <h1 className="error">{errorMessage ? errorMessage : "Ups, something went wrong..."}</h1>;
     else 
-        content = <Players playersInfo={playersInfo} />;
+        content = <Players players={players} />;
     
     return (
         <>
