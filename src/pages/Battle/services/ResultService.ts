@@ -23,7 +23,7 @@ const getUserData = async (userName: string) : Promise<FightResult> => {
     }
 };
 
-const fight = async (players: any[]) : Promise<FightResult[]> => {
+const fight = async (players: string[]) : Promise<FightResult[]> => {
     var results = await Promise.all(players.map(getUserData));
     return results.sort((first: FightResult, second: FightResult) => second.score - first.score);
 }
