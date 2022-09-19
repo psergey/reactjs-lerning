@@ -11,11 +11,11 @@
     font-weight: 200;
 }
 
-.winner {
+.win {
     color: green;
 }
 
-.loser {
+.loose {
     color: red;
 }
 

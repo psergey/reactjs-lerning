@@ -1,9 +1,10 @@
 import PlayerPreview from "./PlayerPreview";
 import classes from './Player.module.css';
 import { Profile } from "../../models/models";
+import { FightStatus } from "./models/models";
 
 interface Props {
-    status: string
+    status: FightStatus
     score: number
     profile: Profile
 }

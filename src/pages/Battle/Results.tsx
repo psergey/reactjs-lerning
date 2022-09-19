@@ -27,11 +27,11 @@ const Results: React.FC = () => {
                 <Loader /> :     
                 status === 'idle' && fightResults.length === 2 && <div className={classes.row}>
                 <Player
-                    status={fightResults[0].score === fightResults[1].score ? 'draw' : 'winner'}
+                    status={fightResults[0].score === fightResults[1].score ? 'draw' : 'win'}
                     score={fightResults[0].score}
                     profile={fightResults[0].profile} />
                 <Player
-                    status={fightResults[0].score === fightResults[1].score ? 'draw' : 'loser'}
+                    status={fightResults[0].score === fightResults[1].score ? 'draw' : 'loose'}
                     score={fightResults[1].score}
                     profile={fightResults[1].profile} />
             </div>}
