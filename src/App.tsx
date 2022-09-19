@@ -6,7 +6,7 @@ import Results from "./pages/Battle/Results";
 import Home from './pages/Home/Home';
 import Popular from "./pages/Popular/Popular";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className='container'>
       <Nav />
