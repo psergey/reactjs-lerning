@@ -1,12 +1,12 @@
 import PlayerPreview from "./PlayerPreview";
 import classes from './Player.module.css';
-import { Profile } from "../../models/models";
+import { IProfile } from "../../models/models";
 import { FightStatus } from "./models/models";
 
 interface Props {
     status: FightStatus
     score: number
-    profile: Profile
+    profile: IProfile
 }
 
 const Player: React.FC<Props> = ({status, score, profile}) => {

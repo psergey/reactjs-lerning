@@ -1,7 +1,6 @@
-import { type } from "os"
-import { Profile } from "../../../models/models"
+import { IProfile } from "../../../models/models"
 
-export interface Fighter 
+export interface IFighter 
 {
     id: FighterIds
     name: string
@@ -10,8 +9,8 @@ export interface Fighter
 
 export type FighterIds = 'player1' | 'player2'
 
-export interface FightResult {
-    profile: Profile
+export interface IFightResult {
+    profile: IProfile
     score: number
 }
 

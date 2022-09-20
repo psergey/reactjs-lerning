@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Fighter, FighterIds } from "./models/models";
+import { IFighter, FighterIds } from "./models/models";
 
 const initialState = {
-    player1: null as null | Fighter,
-    player2: null as null | Fighter,
+    player1: null as null | IFighter,
+    player2: null as null | IFighter,
 }
 
 export const playersSlice = createSlice({
     name: 'players',
     initialState,
     reducers: {
-        playerSelected(state, action: PayloadAction<Fighter>) {
+        playerSelected(state, action: PayloadAction<IFighter>) {
             const {id, name} = action.payload;
             state[id] = {
                 id,

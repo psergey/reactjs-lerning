@@ -1,17 +1,17 @@
-import { Profile } from "../../../models/models";
+import { IProfile } from "../../../models/models";
 import PlayersProvider from "../../../services/playersApi";
-import { FightResult } from "../models/models";
+import { IFightResult } from "../models/models";
 
 const getTotalStarts = (repos: any) : number => repos.reduce((total: number, item: any) => total + item.stargazers_count, 0);
 
-const calculateScore = (profile: Profile, repositories: any): number => {
+const calculateScore = (profile: IProfile, repositories: any): number => {
     const followers = profile.followers;
     const stars = getTotalStarts(repositories);
 
     return followers * 3 + stars;
 };
 
-const getUserData = async (userName: string) : Promise<FightResult> => {
+const getUserData = async (userName: string) : Promise<IFightResult> => {
     const [profile, repos] = await Promise.all([
         PlayersProvider.getPorfile(userName),
         PlayersProvider.getRepositories(userName)
@@ -23,9 +23,9 @@ const getUserData = async (userName: string) : Promise<FightResult> => {
     }
 };
 
-const fight = async (players: string[]) : Promise<FightResult[]> => {
+const fight = async (players: string[]) : Promise<IFightResult[]> => {
     var results = await Promise.all(players.map(getUserData));
-    return results.sort((first: FightResult, second: FightResult) => second.score - first.score);
+    return results.sort((first: IFightResult, second: IFightResult) => second.score - first.score);
 }
 
 export {

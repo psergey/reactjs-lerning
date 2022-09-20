@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoadingState } from "../../models/models";
 import { fight as playersFight } from './services/ResultService';
-import { FightResult } from "./models/models";
+import { IFightResult } from "./models/models";
 
 export const fight = createAsyncThunk('fight/action', async (players: string[]) => await playersFight(players));
 const initialState = {
     status: 'idle' as LoadingState,
-    fightResults: [] as FightResult[],
+    fightResults: [] as IFightResult[],
     errorMessage: null as null | string | undefined
 }
 

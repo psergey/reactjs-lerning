@@ -7,7 +7,7 @@ export enum Languages {
     "Python" = "Python",
 }
 
-export interface Player {
+export interface IPlayer {
     id: number;
     login: string;
     name: string;
@@ -15,11 +15,11 @@ export interface Player {
     avatar_url: string;
 }
 
-export interface PopularPlayer extends Player {
+export interface IPopularPlayer extends IPlayer {
     stargazers_count: number;
 }
 
-export interface Profile extends Player {
+export interface IProfile extends IPlayer {
     followers: number
     following: number
     company: string

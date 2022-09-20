@@ -1,13 +1,8 @@
 import React from 'react';
-import { PopularPlayer } from '../../models/models';
+import { IPopularPlayer } from '../../models/models';
 import classes from './Players.module.css'
 
-interface Props 
-{
-    players: PopularPlayer[]
-}
-
-const Players: React.FC<Props> = ({players}) => {
+const Players: React.FC<{players: IPopularPlayer[]}> = ({players}) => {
     return (
         <ul className={classes['popular-list']}>
             {players.map(function (player, index) {

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Languages, LoadingState, PopularPlayer } from "../../models/models";
+import { Languages, LoadingState, IPopularPlayer } from "../../models/models";
 import PlayersProvider from "../../services/playersApi";
 
 export const fetchPopularPlayers = createAsyncThunk('popular/fetchPopularPlayers', async (language: Languages) => {
@@ -9,7 +9,7 @@ export const fetchPopularPlayers = createAsyncThunk('popular/fetchPopularPlayers
 
 const initialState  = {
     language: Languages.ALL,
-    players: [] as PopularPlayer[],
+    players: [] as IPopularPlayer[],
     status: 'idle' as LoadingState,
     errorMessage: null as null | string | undefined
 };
