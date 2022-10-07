@@ -8,13 +8,13 @@ interface Props
     onSubmit(id: string, name: string): void
 }
 
-const PlayerInput: React.FC<Props> = ({id, label, className, onSubmit}) => {
+const PlayerInput: React.FC<Props> = ({id, label, className, onSubmit}): JSX.Element => {
     
     const [userName, setUserName] = useState<string>('');
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void  => {
         setUserName(event.target.value);
     }
-    const onSubmitHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    const onSubmitHandler = (event: MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
         onSubmit(id, userName);
     } 

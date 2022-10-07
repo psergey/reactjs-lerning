@@ -1,6 +1,6 @@
 import FighterSelector from "./FighterSelector";
 
-const Battle = () => {
+const Battle: React.FC = (): JSX.Element => {
     return ( 
         <>
             <div>

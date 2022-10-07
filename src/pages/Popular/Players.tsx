@@ -2,7 +2,7 @@ import React from 'react';
 import { IPopularPlayer } from '../../models/models';
 import classes from './Players.module.css'
 
-const Players: React.FC<{players: IPopularPlayer[]}> = ({players}) => {
+const Players: React.FC<{players: IPopularPlayer[]}> = ({players}): JSX.Element => {
     return (
         <ul className={classes['popular-list']}>
             {players.map(function (player, index) {

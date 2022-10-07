@@ -9,7 +9,7 @@ interface Props {
     profile: IProfile
 }
 
-const Player: React.FC<Props> = ({status, score, profile}) => {
+const Player: React.FC<Props> = ({status, score, profile}): JSX.Element => {
     return (
         <div className={classes.column}>
             <h2 className={classes.status + ' ' + classes[status]}>{status}</h2>

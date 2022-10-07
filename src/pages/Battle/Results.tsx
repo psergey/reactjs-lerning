@@ -6,7 +6,7 @@ import classes from './FighterSelector.module.css'
 import { fight } from './fightSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
-const Results: React.FC = () => {
+const Results: React.FC = (): JSX.Element => {
     const [searchParams] = useSearchParams();
     const dispatch = useAppDispatch();
     const { status, fightResults, errorMessage } = useAppSelector(state => state.fight);

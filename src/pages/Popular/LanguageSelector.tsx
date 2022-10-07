@@ -9,7 +9,7 @@ interface Props
     onSelectLanguage(language: Languages): void
 }
 
-const LanguageSelector: React.FC<Props> = ({isLoading, selectedLanguage, onSelectLanguage}) => {
+const LanguageSelector: React.FC<Props> = ({isLoading, selectedLanguage, onSelectLanguage}): JSX.Element => {
     return (
         <ul className={classes.languages}>
             {Object.values(Languages).map(language => (

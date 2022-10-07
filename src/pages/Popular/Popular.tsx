@@ -7,7 +7,7 @@ import { fetchPopularPlayers, languageChanged } from "./popularSlice";
 import { Languages } from "../../models/models";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
-const Popular = () => {
+const Popular: React.FC = (): JSX.Element => {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useAppDispatch()
     const { language, players, status, errorMessage } = useAppSelector(state => state.populars);
@@ -25,7 +25,7 @@ const Popular = () => {
         dispatch(languageChanged(language));
     }
 
-    let content;
+    let content: JSX.Element;
     if (status === 'loading')
         content = <Loader />;
     else if (status === 'error')

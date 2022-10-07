@@ -6,16 +6,16 @@ import { playerSelected, playerReset } from "./playersSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { FighterIds } from "./models/models";
 
-const FighterSelector: React.FC = () => {
+const FighterSelector: React.FC = (): JSX.Element => {
     const location = useLocation();
     const dispatch = useAppDispatch();
     const { player1, player2 } = useAppSelector(state => state.players);
     
-    const onSubmitHandler = (id: FighterIds, name: string) => {
+    const onSubmitHandler = (id: FighterIds, name: string): void => {
         dispatch(playerSelected({id, name}));
     }
 
-    const onResetHandler = (id: FighterIds) => {
+    const onResetHandler = (id: FighterIds): void => {
         dispatch(playerReset(id))
     }
 
